@@ -2,7 +2,7 @@
     "name": "Lịch Âm Dương Việt Nam",
     "short_name": "Lịch VN",
     "description": "Xem lịch âm dương và sự kiện",
-    "start_url": "./index.html",
+    "start_url": "/amlichsimply/index.html",
     "display": "standalone",
     "background_color": "#f5f7fa",
     "theme_color": "#007bff",
