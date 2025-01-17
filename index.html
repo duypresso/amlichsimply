@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=no">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#007bff">
+    <title>Lịch Âm Dương Việt Nam</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        @media screen and (display-mode: standalone) {
+            body {
+                padding-top: env(safe-area-inset-top);
+                padding-bottom: env(safe-area-inset-bottom);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="calendar-container">
+            <div class="calendar-header">
+                <button id="prevMonth" class="nav-button">&lt;</button>
+                <div class="date-selectors">
+                    <select id="monthSelect" class="date-select">
+                        <option value="0">Tháng 1</option>
+                        <option value="1">Tháng 2</option>
+                        <option value="2">Tháng 3</option>
+                        <option value="3">Tháng 4</option>
+                        <option value="4">Tháng 5</option>
+                        <option value="5">Tháng 6</option>
+                        <option value="6">Tháng 7</option>
+                        <option value="7">Tháng 8</option>
+                        <option value="8">Tháng 9</option>
+                        <option value="9">Tháng 10</option>
+                        <option value="10">Tháng 11</option>
+                        <option value="11">Tháng 12</option>
+                    </select>
+                    <select id="yearSelect" class="date-select"></select>
+                </div>
+                <button id="nextMonth" class="nav-button">&gt;</button>
+            </div>
+            <div class="weekdays">
+                <div>CN</div>
+                <div>T2</div>
+                <div>T3</div>
+                <div>T4</div>
+                <div>T5</div>
+                <div>T6</div>
+                <div>T7</div>
+            </div>
+            <div id="calendar"></div>
+        </div>
+        <div class="events-container mobile-events">
+            <h3>Sự kiện trong ngày</h3>
+            <div class="date-display">
+                <div class="solar-date-display">
+                    <div class="date-label">Dương lịch</div>
+                    <span class="date-number"></span>
+                    <span class="date-info"></span>
+                </div>
+                <div class="date-divider"></div>
+                <div class="lunar-date-display">
+                    <div class="date-label">Âm lịch</div>
+                    <span class="date-number"></span>
+                    <span class="date-info"></span>
+                </div>
+            </div>
+            <div id="events"></div>
+            <div id="lunarInfo"></div>
+        </div>
+    </div>
+    <script src="amlich.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

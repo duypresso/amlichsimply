@@ -1,0 +1,610 @@
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+.container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-sizing: border-box;
+}
+
+.calendar-container {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.calendar-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    text-align: center;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+.weekdays div {
+    padding: 12px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    font-weight: 600;
+    color: #666;
+}
+
+#calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+}
+
+.calendar-day {
+    aspect-ratio: 1;
+    padding: 5px;
+    border: none;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    background: white;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.calendar-day:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.solar-date {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 3px;
+}
+
+.lunar-date {
+    font-size: 0.8em;
+    color: #666;
+}
+
+.today {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%) !important;
+    border: none;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.today::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 8px;
+    height: 8px;
+    background: #ff4757;
+    border-radius: 50%;
+}
+
+.today .lunar-date {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.today:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4);
+}
+
+.today.selected {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%) !important;
+    box-shadow: 0 5px 15px rgba(79, 172, 254, 0.4);
+}
+
+.events-container {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.selected {
+    position: relative;
+    color: white;
+}
+
+.selected:not(.today) {
+    background: #007bff !important;
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+}
+
+.selected .lunar-date {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.event {
+    padding: 15px;
+    margin: 10px 0;
+    background-color: white;
+    border-radius: 12px;
+    border-left: 4px solid #007bff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.event:hover {
+    transform: translateX(5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.no-events {
+    color: #666;
+    font-style: italic;
+    padding: 10px 0;
+}
+
+.events-list {
+    margin-top: 10px;
+}
+
+.nav-button {
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.nav-button:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-events {
+    transition: all 0.3s ease;
+}
+
+.date-selectors {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    background: #f8f9fa;
+    padding: 10px;
+    border-radius: 12px;
+}
+
+.date-select {
+    padding: 8px 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    background-color: white;
+    transition: all 0.3s ease;
+    flex: 1;
+}
+
+.date-select:hover {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.date-display {
+    background: linear-gradient(135deg, #f6f8ff 0%, #ffffff 100%);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 15px 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.solar-date-display,
+.lunar-date-display {
+    flex: 1;
+    text-align: center;
+}
+
+.date-number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #333;
+}
+
+.date-info {
+    display: block;
+    font-size: 1rem;
+    color: #666;
+    margin-top: 5px;
+}
+
+.date-divider {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, transparent, #ddd, transparent);
+}
+
+.lunar-date-display .date-number {
+    color: #007bff;
+}
+
+.date-label {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #666;
+    margin-bottom: 5px;
+    font-weight: 600;
+    background: #f8f9fa;
+    padding: 3px 8px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.solar-date-display .date-label {
+    color: #2196f3;
+    background: rgba(33, 150, 243, 0.1);
+}
+
+.lunar-date-display .date-label {
+    color: #e91e63;
+    background: rgba(233, 30, 99, 0.1);
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .calendar-container,
+    .events-container {
+        width: 100%;
+    }
+
+    .calendar-day {
+        font-size: 14px;
+        padding: 2px;
+    }
+
+    .lunar-date {
+        font-size: 10px;
+    }
+
+    .calendar-header h2 {
+        font-size: 18px;
+    }
+
+    .weekdays div {
+        font-size: 12px;
+        padding: 5px 0;
+    }
+
+    #monthDisplay {
+        font-size: 1.2rem;
+    }
+
+    button#prevMonth,
+    button#nextMonth {
+        padding: 5px 10px;
+        font-size: 16px;
+    }
+
+    .date-selectors {
+        gap: 5px;
+    }
+    
+    .date-select {
+        padding: 3px 5px;
+        font-size: 0.9rem;
+    }
+
+    .events-container {
+        position: static;
+        transform: none;
+        max-height: none;
+        margin-top: 20px;
+    }
+
+    .calendar-container {
+        margin-bottom: 0;
+    }
+
+    .container {
+        margin: 0;
+        padding: 10px;
+    }
+
+    .calendar-container {
+        padding: 15px;
+        border-radius: 15px;
+    }
+
+    .calendar-header {
+        margin-bottom: 15px;
+    }
+
+    .date-selectors {
+        flex: 1;
+        padding: 8px;
+    }
+
+    .date-select {
+        padding: 6px 8px;
+        font-size: 0.85rem;
+        min-width: 0; /* Cho phép select co lại */
+    }
+
+    .nav-button {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+        min-width: 40px;
+    }
+
+    .weekdays {
+        margin: 10px 0;
+    }
+
+    .weekdays div {
+        padding: 8px 2px;
+        font-size: 0.8rem;
+        border-radius: 6px;
+    }
+
+    .calendar-day {
+        padding: 3px;
+        border-radius: 6px;
+    }
+
+    .solar-date {
+        font-size: 0.9rem;
+        margin-bottom: 2px;
+    }
+
+    .lunar-date {
+        font-size: 0.7rem;
+    }
+
+    .events-container {
+        padding: 15px;
+        border-radius: 15px;
+    }
+
+    .events-container h3 {
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+    }
+
+    .event {
+        padding: 10px;
+        margin: 8px 0;
+        font-size: 0.9rem;
+    }
+
+    #lunarInfo {
+        font-size: 0.85rem;
+        padding: 10px;
+    }
+
+    body {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .container {
+        height: 100vh;
+        margin: 0;
+        padding: 10px;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch; /* Cho iOS scroll mượt */
+    }
+
+    .calendar-container {
+        padding: 15px;
+        border-radius: 15px;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: rgba(255, 255, 255, 0.98);
+    }
+
+    .calendar-day {
+        font-size: 0.9rem;
+        padding: 2px;
+        min-height: 40px; /* Đảm bảo kích thước tối thiểu */
+    }
+
+    .events-container {
+        padding: 15px;
+        margin-bottom: 20px;
+        min-height: 200px; /* Đảm bảo có không gian hiển thị sự kiện */
+    }
+
+    /* Tối ưu kích thước các phần tử UI */
+    .date-selectors {
+        gap: 5px;
+        padding: 8px;
+    }
+
+    .date-select {
+        min-width: 80px; /* Đảm bảo độ rộng tối thiểu */
+    }
+
+    .nav-button {
+        min-width: 35px;
+        height: 35px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Ngăn chặn zoom khi tap trên iOS */
+    .calendar-day,
+    .date-select,
+    .nav-button {
+        touch-action: manipulation;
+    }
+
+    .date-display {
+        padding: 15px;
+    }
+
+    .date-number {
+        font-size: 2rem;
+    }
+
+    .date-info {
+        font-size: 0.9rem;
+    }
+
+    .date-label {
+        font-size: 0.75rem;
+        padding: 2px 6px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .calendar-day {
+        font-size: 12px;
+        padding: 1px;
+    }
+
+    .lunar-date {
+        font-size: 9px;
+    }
+
+    .event {
+        padding: 5px;
+        margin: 3px 0;
+        font-size: 14px;
+    }
+}
+
+/* Thêm breakpoint cho màn hình cực nhỏ */
+@media screen and (max-width: 360px) {
+    .container {
+        padding: 5px;
+    }
+
+    .calendar-container {
+        padding: 10px;
+    }
+
+    .date-selectors {
+        gap: 5px;
+        padding: 5px;
+    }
+
+    .date-select {
+        padding: 4px 6px;
+        font-size: 0.8rem;
+    }
+
+    .nav-button {
+        padding: 6px 8px;
+        min-width: 30px;
+    }
+
+    .calendar-day {
+        padding: 2px;
+    }
+
+    .solar-date {
+        font-size: 0.8rem;
+    }
+
+    .lunar-date {
+        font-size: 0.6rem;
+    }
+
+    .calendar-container {
+        padding: 10px;
+    }
+
+    .calendar-day {
+        min-height: 35px;
+    }
+
+    .date-select {
+        min-width: 70px;
+    }
+}
+
+/* Thêm styles cho màn hình landscape */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+    .container {
+        max-width: 100%;
+        margin: 0;
+        padding: 10px;
+    }
+
+    .calendar-container {
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .events-container {
+        width: 90%;
+        margin: 10px auto;
+    }
+
+    #calendar {
+        gap: 3px;
+    }
+
+    .container {
+        display: grid;
+        grid-template-columns: 60% 40%;
+        gap: 10px;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    .calendar-container {
+        position: relative;
+        height: calc(100vh - 20px);
+        overflow-y: auto;
+    }
+
+    .events-container {
+        height: calc(100vh - 20px);
+        overflow-y: auto;
+        margin-top: 0;
+    }
+
+    .calendar-day {
+        min-height: 30px;
+    }
+}
