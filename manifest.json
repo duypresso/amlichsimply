@@ -2,10 +2,11 @@
     "name": "Lịch Âm Dương Việt Nam",
     "short_name": "Lịch VN",
     "description": "Xem lịch âm dương và sự kiện",
-    "start_url": "/",
+    "start_url": "./index.html",
     "display": "standalone",
     "background_color": "#f5f7fa",
     "theme_color": "#007bff",
+    "orientation": "any",
     "icons": [
         {
             "src": "icons/icon-192x192.png",
@@ -19,5 +20,6 @@
             "type": "image/png",
             "purpose": "any maskable"
         }
-    ]
+    ],
+    "prefer_related_applications": false
 }

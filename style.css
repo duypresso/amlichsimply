@@ -615,3 +615,88 @@ body {
         min-height: 30px;
     }
 }
+
+.install-prompt {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    z-index: 1000;
+    width: 90%;
+    max-width: 400px;
+    animation: slideUp 0.3s ease;
+}
+
+.prompt-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.prompt-message {
+    text-align: center;
+}
+
+.prompt-message strong {
+    display: block;
+    font-size: 1.1rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.prompt-message p {
+    margin: 0;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.prompt-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.install-button {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dismiss-button {
+    background: #f0f0f0;
+    color: #666;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.install-button:hover {
+    background: #0056b3;
+}
+
+.dismiss-button:hover {
+    background: #e0e0e0;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translate(-50%, 100%);
+        opacity: 0;
+    }
+    to {
+        transform: translate(-50%, 0);
+        opacity: 1;
+    }
+}

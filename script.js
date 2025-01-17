@@ -206,3 +206,52 @@ function initializeDateSelectors() {
 initializeDateSelectors();
 updateCalendar();
 updateEvents();
+
+// Thêm vào cuối file
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    // Ngăn không cho popup tự động hiện
+    e.preventDefault();
+    // Lưu event để sử dụng sau
+    deferredPrompt = e;
+    // Hiển thị UI gợi ý cài đặt sau 3 giây
+    setTimeout(showInstallPromotion, 3000);
+});
+
+function showInstallPromotion() {
+    if (!deferredPrompt) return;
+
+    // Tạo popup promotion
+    const promoDiv = document.createElement('div');
+    promoDiv.className = 'install-prompt';
+    promoDiv.innerHTML = `
+        <div class="prompt-content">
+            <div class="prompt-message">
+                <strong>Cài đặt ứng dụng</strong>
+                <p>Cài đặt để sử dụng nhanh hơn và xem offline</p>
+            </div>
+            <div class="prompt-buttons">
+                <button class="install-button">Cài đặt</button>
+                <button class="dismiss-button">Để sau</button>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(promoDiv);
+
+    // Xử lý sự kiện click
+    promoDiv.querySelector('.install-button').addEventListener('click', async () => {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+            console.log('User accepted the install prompt');
+        }
+        deferredPrompt = null;
+        promoDiv.remove();
+    });
+
+    promoDiv.querySelector('.dismiss-button').addEventListener('click', () => {
+        promoDiv.remove();
+    });
+}
