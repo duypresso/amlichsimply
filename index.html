@@ -8,6 +8,8 @@
     <meta name="format-detection" content="telephone=no">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <meta name="theme-color" content="#007bff">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
     <title>Lịch Âm Dương Việt Nam</title>
     <link rel="stylesheet" href="style.css">
     <style>
@@ -75,5 +77,19 @@
     </div>
     <script src="amlich.js"></script>
     <script src="script.js"></script>
+    <script>
+        // Đăng ký Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then((registration) => {
+                        console.log('ServiceWorker registration successful');
+                    })
+                    .catch((err) => {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
+            });
+        }
+    </script>
 </body>
 </html>

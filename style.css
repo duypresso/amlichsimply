@@ -170,20 +170,27 @@ body {
 }
 
 .nav-button {
-    background: #007bff;
-    color: white;
+    background: rgba(0, 123, 255, 0.3);
+    color: #007bff;
     border: none;
     border-radius: 8px;
     padding: 8px 20px;
     font-size: 1rem;
     cursor: pointer;
     transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
 }
 
 .nav-button:hover {
-    background: #0056b3;
+    background: rgba(0, 123, 255, 0.5);
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+    color: white;
+}
+
+.nav-button:active {
+    transform: translateY(0);
+    background: rgba(0, 123, 255, 0.7);
 }
 
 .mobile-events {
