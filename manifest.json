@@ -2,21 +2,21 @@
     "name": "Lịch Âm Dương Việt Nam",
     "short_name": "Lịch VN",
     "description": "Xem lịch âm dương và sự kiện",
-    "start_url": "/amlichsimply/",
-    "scope": "/amlichsimply/",
+    "start_url": "./",
+    "scope": "./",
     "display": "standalone",
     "background_color": "#f5f7fa",
     "theme_color": "#007bff",
     "orientation": "any",
     "icons": [
         {
-            "src": "/amlichsimply/icons/icon-192x192.png",
+            "src": "icons/icon-192x192.png",
             "sizes": "192x192",
             "type": "image/png",
             "purpose": "any maskable"
         },
         {
-            "src": "/amlichsimply/icons/icon-512x512.png",
+            "src": "icons/icon-512x512.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "any maskable"

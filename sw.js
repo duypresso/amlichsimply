@@ -1,21 +1,37 @@
 const CACHE_NAME = 'amlich-cache-v1';
-const GITHUB_PAGES_URL = '/amlichsimply';
 const urlsToCache = [
-    GITHUB_PAGES_URL + '/',
-    GITHUB_PAGES_URL + '/index.html',
-    GITHUB_PAGES_URL + '/style.css',
-    GITHUB_PAGES_URL + '/script.js',
-    GITHUB_PAGES_URL + '/amlich.js',
-    GITHUB_PAGES_URL + '/manifest.json',
-    GITHUB_PAGES_URL + '/icons/icon-192x192.png',
-    GITHUB_PAGES_URL + '/icons/icon-512x512.png',
+    './',
+    './index.html',
+    './style.css',
+    './script.js',
+    './amlich.js',
+    './manifest.json',
+    './icons/icon-192x192.png',
+    './icons/icon-512x512.png',
     'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap'
 ];
 
 self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(CACHE_NAME)
-            .then((cache) => cache.addAll(urlsToCache))
+            .then((cache) => {
+                console.log('Opened cache');
+                return cache.addAll(urlsToCache);
+            })
+    );
+});
+
+self.addEventListener('activate', (event) => {
+    event.waitUntil(
+        caches.keys().then((cacheNames) => {
+            return Promise.all(
+                cacheNames.map((cacheName) => {
+                    if (cacheName !== CACHE_NAME) {
+                        return caches.delete(cacheName);
+                    }
+                })
+            );
+        })
     );
 });
 
@@ -23,12 +39,14 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
         caches.match(event.request)
             .then((response) => {
+                // Cache hit - return response
                 if (response) {
                     return response;
                 }
-                return fetch(event.request)
-                    .then((response) => {
-                        // Don't cache if not a valid response
+
+                return fetch(event.request).then(
+                    (response) => {
+                        // Check if we received a valid response
                         if (!response || response.status !== 200 || response.type !== 'basic') {
                             return response;
                         }
@@ -42,22 +60,23 @@ self.addEventListener('fetch', (event) => {
                             });
 
                         return response;
-                    });
+                    }
+                );
             })
     );
 });
 
-// Clean up old caches
-self.addEventListener('activate', (event) => {
-    event.waitUntil(
-        caches.keys().then((cacheNames) => {
-            return Promise.all(
-                cacheNames.map((cacheName) => {
-                    if (cacheName !== CACHE_NAME) {
-                        return caches.delete(cacheName);
+// Handle offline functionality
+self.addEventListener('fetch', (event) => {
+    if (!navigator.onLine) {
+        event.respondWith(
+            caches.match(event.request)
+                .then((response) => {
+                    if (response) {
+                        return response;
                     }
+                    return caches.match('./index.html');
                 })
-            );
-        })
-    );
+        );
+    }
 });
